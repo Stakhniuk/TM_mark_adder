@@ -8,5 +8,4 @@ public interface Config {
 
     @WithName("message")
     String message();
-
 }
