@@ -14,8 +14,8 @@ public class Resource {
     SiteParser siteParser;
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return siteParser.addTMMarkTo6LetterWords();
+    @Produces(MediaType.TEXT_HTML)
+    public String returnDocument() {
+        return siteParser.addTMMarkTo6LetterWords().toString();
     }
 }
