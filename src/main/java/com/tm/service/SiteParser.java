@@ -7,20 +7,18 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @ApplicationScoped
 public class SiteParser {
 
     Logger LOG = Logger.getLogger(SiteParser.class.getName());
 
-    private final String url = "https://quarkus.io/";
-    final String regex = "^\\w{6}$";
+    final String regex = "\\b[A-Za-z0-9]{6}\\b";
 
     public String addTMMarkTo6LetterWords() {
-        Document doc = null;
+        Document doc;
         try {
+            String url = "https://quarkus.io/";
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
             throw new RuntimeException("⟨™⟩ symbol cannot be added.");
@@ -30,8 +28,8 @@ public class SiteParser {
         String html = body.text();
         String resultHTML = html.replaceAll(regex, "⟨™⟩");
 
-        LOG.info(resultHTML);
+//        LOG.info(resultHTML);
 
-        return html;
+        return resultHTML;
     }
 }
