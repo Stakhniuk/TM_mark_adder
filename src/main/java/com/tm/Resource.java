@@ -6,8 +6,13 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
-@Path("/hello")
+import java.net.MalformedURLException;
+import java.net.URL;
+
+@Path("/")
 public class Resource {
 
     @Inject
@@ -16,6 +21,18 @@ public class Resource {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public String returnDocument() {
-        return siteParser.addTMMarkTo6LetterWords().toString();
+        URL url;
+        try {
+            url = new URL("https://quarkus.io/");
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Invalid/broken URL");
+        }
+        Document doc = siteParser.addTMMarkTo6LetterWords(url);
+
+//        Element baseUrlElement = doc.select("base-uri").first();
+//
+//        String baseUrl = url.toString();
+//        baseUrlElement.setBaseUri(baseUrl);
+        return doc.toString();
     }
 }

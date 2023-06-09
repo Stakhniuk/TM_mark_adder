@@ -8,6 +8,7 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,11 +22,10 @@ public class SiteParser {
 
     final String regex = "\\b[A-Za-z0-9]{6}\\b";
 
-    public Document addTMMarkTo6LetterWords() {
+    public Document addTMMarkTo6LetterWords(URL url) {
         Document doc;
         try {
-            String url = "https://quarkus.io/";
-            doc = Jsoup.connect(url).get();
+            doc = Jsoup.connect(url.toString()).get();
         } catch (IOException e) {
             throw new RuntimeException("Page parsing error, ⟨™⟩ symbol cannot be added.");
         }

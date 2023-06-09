@@ -68,6 +68,12 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-qute</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-undertow -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-undertow</artifactId>
+            <version>3.1.1.Final</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
