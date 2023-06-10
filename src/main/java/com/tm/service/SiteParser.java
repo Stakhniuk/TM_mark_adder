@@ -8,7 +8,6 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
-import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +21,7 @@ public class SiteParser {
 
     final String regex = "\\b[A-Za-z0-9]{6}\\b";
 
-    public Document addTMMarkTo6LetterWords(URL url) {
+    public Document addTMMarkTo6LetterWords(String url) {
         Document doc;
         try {
             doc = Jsoup.connect(url.toString()).get();

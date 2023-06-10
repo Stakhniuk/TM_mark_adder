@@ -1,0 +1,5 @@
+zuul:
+  routes:
+    get:
+      path: /get/**
+      url: http://httpbin.org/get
