@@ -21,7 +21,14 @@ public class SiteParser {
 
     final String regex = "\\b[A-Za-z0-9]{6}\\b";
 
-    public Document addTMMarkTo6LetterWords(Document doc) {
+    public Document addTMMarkTo6LetterWords(String url) {
+
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(url.toString()).get();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
 
