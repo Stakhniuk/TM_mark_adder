@@ -8,6 +8,8 @@ import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,7 +23,14 @@ public class SiteParser {
 
     final String regex = "\\b[A-Za-z0-9]{6}\\b";
 
-    public Document addTMMarkTo6LetterWords(String url) {
+    public Document addTMMarkTo6LetterWords(String baseUrl, String path) {
+        URL url;
+        try {
+            url = new URL("https://quarkus.io/" + path);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Invalid/broken URL");
+        }
+
         Document doc;
         try {
             doc = Jsoup.connect(url.toString()).get();
@@ -36,7 +45,7 @@ public class SiteParser {
             for (Node child : e.childNodes()) {
                 if (child instanceof TextNode && !((TextNode) child).isBlank()) {
                     Matcher matcher = pattern.matcher(((TextNode) child).text());
-                    ((TextNode) child).text( matcher.replaceAll(word -> word.group() + "™"));
+                    ((TextNode) child).text(matcher.replaceAll(word -> word.group() + "™"));
                 }
             }
         }

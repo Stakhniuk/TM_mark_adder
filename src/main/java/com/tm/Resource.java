@@ -8,8 +8,6 @@ import jakarta.ws.rs.core.MediaType;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jsoup.nodes.Document;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 
 @Path("")
 public class Resource {
@@ -31,17 +29,12 @@ public class Resource {
     @Path("{path:.*}")
     @Produces(MediaType.TEXT_HTML)
     public String returnDocument(@PathParam("path") String path) {
-        URL url;
-        try {
-            url = new URL("https://quarkus.io/" + path);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Invalid/broken URL");
-        }
-        Document doc = siteParser.addTMMarkTo6LetterWords(url.toString());
+
+        Document doc = siteParser.addTMMarkTo6LetterWords(BASE_URL, path);
 //        Element baseUrlElement = doc.select("base-uri").first();
 //
 //        String baseUrl = url.toString();
-//        baseUrlElement.setBaseUri(baseUrl);
+//        baseUrlElement.setBaseUri(baseUrl)
         return doc.toString();
     }
 }
