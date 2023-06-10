@@ -3,12 +3,8 @@ package com.tm;
 import com.tm.service.SiteParser;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.core.MediaType;
-import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
