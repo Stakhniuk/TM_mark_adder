@@ -42,7 +42,7 @@ public class Resource {
             throw new RuntimeException(e);
         }
 
-        if((Arrays.asList("text/html", "application/xml", "application/xhtml+xml").contains(resp.contentType()))) {
+        if((Arrays.asList("text/html; charset=utf-8").contains(resp.contentType()))) {
            return siteParser.addTMMarkTo6LetterWords(url.toString()).toString();
         }
 
