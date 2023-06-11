@@ -2,33 +2,27 @@ package com.tm;
 
 import com.tm.service.SiteParser;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.*;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 
 @Path("")
 public class Resource {
 
     private static String BASE_URL = "https://quarkus.io/";
-    private ExecutorService executorService = Executors.newCachedThreadPool();
-    private Client client;
 
     @Inject
     SiteParser siteParser;
 
     @GET
     @Path("{path:.*}")
-    public String returnDocument(@PathParam("path") String path) throws URISyntaxException{
+    public String returnDocument(@PathParam("path") String path) {
 
         URL url;
         try {
@@ -37,20 +31,17 @@ public class Resource {
             throw new RuntimeException("Invalid/broken URL");
         }
 
-        client = ClientBuilder.newBuilder()
-//                .property("org.jboss.resteasy.jaxrs.client.proxy.host", "127.0.0.1")
-//                .property("org.jboss.resteasy.jaxrs.client.proxy.port", "8080")
-                .executorService(executorService)
-                .build();
+        Connection.Response resp;
+        try {
+            resp = Jsoup.connect(url.toString()).ignoreContentType(true).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        Response response = client.target(url.toString())
-                .request()
-                .get();
-
-        if((Arrays.asList("text/html; charset=utf-8").contains(response.getHeaderString("Content-Type")))) {
+        if((Arrays.asList("text/html; charset=utf-8").contains(resp.contentType()))) {
            return siteParser.addTMMarkTo6LetterWords(url.toString()).toString();
         }
 
-        return response.toString();
+        return resp.body().toString();
     }
 }
