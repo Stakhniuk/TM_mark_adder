@@ -25,7 +25,7 @@ public class SiteParser {
 
         Document doc = null;
         try {
-            doc = Jsoup.connect(url.toString()).get();
+            doc = Jsoup.connect(url.toString()).ignoreContentType(true).get();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
