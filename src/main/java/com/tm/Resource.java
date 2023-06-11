@@ -33,7 +33,7 @@ public class Resource {
 
         Connection.Response resp;
         try {
-            resp = Jsoup.connect(url.toString()).execute();
+            resp = Jsoup.connect(url.toString()).ignoreContentType(true).execute();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
