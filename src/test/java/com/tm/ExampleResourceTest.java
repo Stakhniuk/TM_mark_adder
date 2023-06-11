@@ -20,8 +20,5 @@ public class ExampleResourceTest {
                 .then()
                 .statusCode(200);
 //                .body(is(""));
-        ResteasyClient client = (ResteasyClient) ClientBuilder.newClient();
-        Resource proxy = client.target(BASE_URL).proxy(Resource.class);
-        ResteasyWebTarget target = client.target("https://quarkus.io/");
     }
 }
