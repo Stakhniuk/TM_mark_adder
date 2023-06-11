@@ -15,4 +15,4 @@ Maven 3.8.6 needed
 mvn clean install
 ```
 
-The application is now runnable using `java -jar target/quarkus-app/tm-run.jar`.
+The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
