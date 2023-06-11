@@ -47,7 +47,7 @@ public class Resource {
                 .request()
                 .get();
 
-        if((response.getHeaderString("Content-Type").startsWith("text/"))) {
+        if((Arrays.asList("text/html; charset=utf-8").contains(response.getHeaderString("Content-Type")))) {
            return siteParser.addTMMarkTo6LetterWords(url.toString()).toString();
         }
 
