@@ -9,19 +9,10 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 You can run your application in dev mode that enables live coding using:
 
 Java 17 and above needed
+Maven 3.8.6 needed
 
 ```shell script
-./mvnw compile quarkus:dev
-```
-
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
-
-## Packaging and running the application
-
-The application can be packaged using:
-
-```shell script
-./mvnw package
+mvn clean install
 ```
 
 The application is now runnable using `java -jar target/quarkus-app/tm-run.jar`.
