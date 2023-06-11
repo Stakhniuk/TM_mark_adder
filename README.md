@@ -23,3 +23,5 @@ The application can be packaged using:
 ```shell script
 ./mvnw package
 ```
+
+The application is now runnable using `java -jar target/quarkus-app/tm-run.jar`.
