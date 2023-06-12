@@ -9,7 +9,6 @@ import org.jsoup.Jsoup;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
 
 
 @Path("")
@@ -22,7 +21,7 @@ public class Resource {
 
     @GET
     @Path("{path:.*}")
-    public String returnDocument(@PathParam("path") String path) {
+    public byte[] returnDocument(@PathParam("path") String path) {
 
         URL url;
         try {
@@ -33,15 +32,16 @@ public class Resource {
 
         Connection.Response resp;
         try {
-            resp = Jsoup.connect(url.toString()).ignoreContentType(true).execute();
+            resp = Jsoup.connect(url.toString())
+                    .ignoreContentType(true).execute();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        if((Arrays.asList("text/html; charset=utf-8").contains(resp.contentType()))) {
-           return siteParser.addTMMarkTo6LetterWords(url.toString()).toString();
+        if ((resp.contentType().startsWith("text/html"))) {
+            return siteParser.addTMMarkTo6LetterWords(url.toString()).toString().getBytes();
         }
 
-        return resp.body().toString();
+        return resp.bodyAsBytes();
     }
 }
